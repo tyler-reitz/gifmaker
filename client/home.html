@@ -1,0 +1,46 @@
+<body>
+<div class="container">
+    <aside>
+        <h1>Gif Maker Test</h1>
+        <hr>
+        <div>
+            <input type="number" placeholder="fraem-rate in milliseconds" step="10" />
+        </div>
+        <div class="uploads">
+            <div>
+                1.&nbsp;{{> gifmaker }}
+            </div>
+            <div>
+                2.&nbsp;{{> gifmaker }}
+            </div>
+            <div>
+                3.&nbsp;{{> gifmaker }}
+            </div>
+            <div>
+                4.&nbsp;{{> gifmaker }}
+            </div>
+            <div>
+                5.&nbsp;{{> gifmaker }}
+            </div>
+        </div>
+        <div class="controls">
+            <button class="btn-reset" type="reset">reset</button>
+            <button type="submit">Submit</button>
+        </div>
+        <hr>
+        <div id="display"></div>
+    </aside>
+    <div class="drop-container">
+        <div id="dropDiv" 
+            ondrop="{this.style.boxShadow = '0 0 0 transparent'}"
+            ondragover="{this.style.boxShadow = '0 0 10px lightgreen'}" >
+            <em>Drag and Drop here</em>
+        </div>
+    </div>
+    <br>
+</div>
+</body>
+
+<template name="gifmaker">
+    <input type=file />
+</template>
