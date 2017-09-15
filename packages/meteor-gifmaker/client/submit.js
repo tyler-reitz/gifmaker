@@ -1,11 +1,9 @@
 Meteor.submit = function (event, millisecs, mountPoint) {
 
-  millisecs = millisecs ? (millisecs / 1000) : 100
+  millisecs = millisecs ? (millisecs / 1000) : 0.1
   const images = []
   
   Images.find().forEach(file => images.push(file.url()))
-
-  console.log(images)
 
   gifshot.createGIF({'images': images, 'interval': millisecs }, obj => {
     if (!obj.error) {

@@ -25,7 +25,6 @@ Template.body.events({
   },
   'click button[type="reset"]'(ev) {
     ev.preventDefault()
-    console.log('Reset!')
 
     Meteor.resetImages()
   }

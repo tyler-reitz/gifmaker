@@ -8,7 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 (function(window, document, navigator, undefined) {
   var utils, error, defaultOptions, isSupported, isWebCamGIFSupported, isExistingImagesGIFSupported, isExistingVideoGIFSupported, NeuQuant, processFrameWorker, gifWriter, AnimatedGIF, getBase64GIF, existingImages, screenShot, videoStream, stopVideoStreaming, createAndGetGIF, existingVideo, existingWebcam, createGIF, takeSnapShot, API
   utils = function () {
-  var utils = {
+    var utils = {
     'URL': window.URL || window.webkitURL || window.mozURL || window.msURL,
     'getUserMedia': function () {
       var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
@@ -210,10 +210,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     },
     'webWorkerError': false
   }
-  return utils
-}()
+    return utils
+  }()
   error = function (utils) {
-  var error = {
+    var error = {
     'validate': function (skipObj) {
       skipObj = utils.isObject(skipObj) ? skipObj : {}
       var errorObj = {}
@@ -276,42 +276,42 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
   }
-  return error
-}(utils)
+    return error
+  }(utils)
   defaultOptions = {
-  'sampleInterval': 10,
-  'numWorkers': 2,
-  'gifWidth': 200,
-  'gifHeight': 200,
-  'interval': 0.1,
-  'numFrames': 10,
-  'keepCameraOn': false,
-  'images': [],
-  'video': null,
-  'webcamVideoElement': null,
-  'cameraStream': null,
-  'text': '',
-  'fontWeight': 'normal',
-  'fontSize': '16px',
-  'minFontSize': '10px',
-  'resizeFont': false,
-  'fontFamily': 'sans-serif',
-  'fontColor': '#ffffff',
-  'textAlign': 'center',
-  'textBaseline': 'bottom',
-  'textXCoordinate': null,
-  'textYCoordinate': null,
-  'progressCallback': function (captureProgress) {
+    'sampleInterval': 10,
+    'numWorkers': 2,
+    'gifWidth': 200,
+    'gifHeight': 200,
+    'interval': 0.1,
+    'numFrames': 10,
+    'keepCameraOn': false,
+    'images': [],
+    'video': null,
+    'webcamVideoElement': null,
+    'cameraStream': null,
+    'text': '',
+    'fontWeight': 'normal',
+    'fontSize': '16px',
+    'minFontSize': '10px',
+    'resizeFont': false,
+    'fontFamily': 'sans-serif',
+    'fontColor': '#ffffff',
+    'textAlign': 'center',
+    'textBaseline': 'bottom',
+    'textXCoordinate': null,
+    'textYCoordinate': null,
+    'progressCallback': function (captureProgress) {
   },
-  'completeCallback': function () {
+    'completeCallback': function () {
   },
-  'saveRenderingContexts': false,
-  'savedRenderingContexts': [],
-  'crossOrigin': 'Anonymous'
-}
+    'saveRenderingContexts': false,
+    'savedRenderingContexts': [],
+    'crossOrigin': 'Anonymous'
+  }
   isSupported = function () {
-  return error.isValid()
-}
+    return error.isValid()
+  }
   isWebCamGIFSupported = function () {
     return error.isValid()
   }
@@ -322,15 +322,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   isExistingVideoGIFSupported = function (codecs) {
     var isSupported = false, hasValidCodec = false
     if (utils.isArray(codecs) && codecs.length) {
-    utils.each(codecs, function (indece, currentCodec) {
+      utils.each(codecs, function (indece, currentCodec) {
       if (utils.isSupported.videoCodecs[currentCodec]) {
         hasValidCodec = true
       }
     })
-    if (!hasValidCodec) {
+      if (!hasValidCodec) {
       return false
     }
-  } else if (utils.isString(codecs) && codecs.length) {
+    } else if (utils.isString(codecs) && codecs.length) {
     if (!utils.isSupported.videoCodecs[codecs]) {
       return false
     }
@@ -339,43 +339,43 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
   NeuQuant = function () {
     function NeuQuant() {
-    var netsize = 256
-    var prime1 = 499
-    var prime2 = 491
-    var prime3 = 487
-    var prime4 = 503
-    var minpicturebytes = 3 * prime4
-    var maxnetpos = netsize - 1
-    var netbiasshift = 4
-    var ncycles = 100
-    var intbiasshift = 16
-    var intbias = 1 << intbiasshift
-    var gammashift = 10
-    var gamma = 1 << gammashift
-    var betashift = 10
-    var beta = intbias >> betashift
-    var betagamma = intbias << gammashift - betashift
-    var initrad = netsize >> 3
-    var radiusbiasshift = 6
-    var radiusbias = 1 << radiusbiasshift
-    var initradius = initrad * radiusbias
-    var radiusdec = 30
-    var alphabiasshift = 10
-    var initalpha = 1 << alphabiasshift
-    var alphadec
-    var radbiasshift = 8
-    var radbias = 1 << radbiasshift
-    var alpharadbshift = alphabiasshift + radbiasshift
-    var alpharadbias = 1 << alpharadbshift
-    var thepicture
-    var lengthcount
-    var samplefac
-    var network
-    var netindex = []
-    var bias = []
-    var freq = []
-    var radpower = []
-    function NeuQuantConstructor(thepic, len, sample) {
+      var netsize = 256
+      var prime1 = 499
+      var prime2 = 491
+      var prime3 = 487
+      var prime4 = 503
+      var minpicturebytes = 3 * prime4
+      var maxnetpos = netsize - 1
+      var netbiasshift = 4
+      var ncycles = 100
+      var intbiasshift = 16
+      var intbias = 1 << intbiasshift
+      var gammashift = 10
+      var gamma = 1 << gammashift
+      var betashift = 10
+      var beta = intbias >> betashift
+      var betagamma = intbias << gammashift - betashift
+      var initrad = netsize >> 3
+      var radiusbiasshift = 6
+      var radiusbias = 1 << radiusbiasshift
+      var initradius = initrad * radiusbias
+      var radiusdec = 30
+      var alphabiasshift = 10
+      var initalpha = 1 << alphabiasshift
+      var alphadec
+      var radbiasshift = 8
+      var radbias = 1 << radbiasshift
+      var alpharadbshift = alphabiasshift + radbiasshift
+      var alpharadbias = 1 << alpharadbshift
+      var thepicture
+      var lengthcount
+      var samplefac
+      var network
+      var netindex = []
+      var bias = []
+      var freq = []
+      var radpower = []
+      function NeuQuantConstructor(thepic, len, sample) {
       var i
       var p
       thepicture = thepic
@@ -390,7 +390,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         bias[i] = 0
       }
     }
-    function colorMap() {
+      function colorMap() {
       var map = []
       var index = new Array(netsize)
       for (var i = 0; i < netsize; i++)
@@ -404,7 +404,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
       return map
     }
-    function inxbuild() {
+      function inxbuild() {
       var i
       var j
       var smallpos
@@ -455,7 +455,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         netindex[j] = maxnetpos
       }
     }
-    function learn() {
+      function learn() {
       var i
       var j
       var b
@@ -534,7 +534,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
       }
     }
-    function map(b, g, r) {
+      function map(b, g, r) {
       var i
       var j
       var dist
@@ -606,13 +606,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
       return best
     }
-    function process() {
+      function process() {
       learn()
       unbiasnet()
       inxbuild()
       return colorMap()
     }
-    function unbiasnet() {
+      function unbiasnet() {
       var i
       var j
       for (i = 0; i < netsize; i++) {
@@ -622,7 +622,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         network[i][3] = i
       }
     }
-    function alterneigh(rad, i, b, g, r) {
+      function alterneigh(rad, i, b, g, r) {
       var j
       var k
       var lo
@@ -663,14 +663,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
       }
     }
-    function altersingle(alpha, i, b, g, r) {
+      function altersingle(alpha, i, b, g, r) {
       var n = network[i]
       var alphaMult = alpha / initalpha
       n[0] -= alphaMult * (n[0] - b) | 0
       n[1] -= alphaMult * (n[1] - g) | 0
       n[2] -= alphaMult * (n[2] - r) | 0
     }
-    function contest(b, g, r) {
+      function contest(b, g, r) {
       var i
       var dist
       var a
@@ -718,16 +718,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       bias[bestpos] -= betagamma
       return bestbiaspos
     }
-    NeuQuantConstructor.apply(this, arguments)
-    var exports = {}
-    exports.map = map
-    exports.process = process
-    return exports
-  }
+      NeuQuantConstructor.apply(this, arguments)
+      var exports = {}
+      exports.map = map
+      exports.process = process
+      return exports
+    }
     return NeuQuant
   }()
   processFrameWorker = function (NeuQuant) {
-  var workerCode = function () {
+    var workerCode = function () {
     try {
       self.onmessage = function (ev) {
         var data = ev.data || {}
@@ -780,37 +780,37 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
     return workerMethods
   }
-  return workerCode
-}(NeuQuant)
+    return workerCode
+  }(NeuQuant)
   gifWriter = function gifWriter(buf, width, height, gopts) {
-  var p = 0
-  gopts = gopts === undefined ? {} : gopts
-  var loop_count = gopts.loop === undefined ? null : gopts.loop
-  var global_palette = gopts.palette === undefined ? null : gopts.palette
-  if (width <= 0 || height <= 0 || width > 65535 || height > 65535)
+    var p = 0
+    gopts = gopts === undefined ? {} : gopts
+    var loop_count = gopts.loop === undefined ? null : gopts.loop
+    var global_palette = gopts.palette === undefined ? null : gopts.palette
+    if (width <= 0 || height <= 0 || width > 65535 || height > 65535)
     throw 'Width/Height invalid.'
-  function check_palette_and_num_colors(palette) {
+    function check_palette_and_num_colors(palette) {
     var num_colors = palette.length
     if (num_colors < 2 || num_colors > 256 || num_colors & num_colors - 1)
       throw 'Invalid code/color length, must be power of 2 and 2 .. 256.'
     return num_colors
   }
-  buf[p++] = 71
-  buf[p++] = 73
-  buf[p++] = 70
-  buf[p++] = 56
-  buf[p++] = 57
-  buf[p++] = 97
-  var gp_num_colors_pow2 = 0
-  var background = 0
-  buf[p++] = width & 255
-  buf[p++] = width >> 8 & 255
-  buf[p++] = height & 255
-  buf[p++] = height >> 8 & 255
-  buf[p++] = (global_palette !== null ? 128 : 0) | gp_num_colors_pow2
-  buf[p++] = background
-  buf[p++] = 0
-  if (loop_count !== null) {
+    buf[p++] = 71
+    buf[p++] = 73
+    buf[p++] = 70
+    buf[p++] = 56
+    buf[p++] = 57
+    buf[p++] = 97
+    var gp_num_colors_pow2 = 0
+    var background = 0
+    buf[p++] = width & 255
+    buf[p++] = width >> 8 & 255
+    buf[p++] = height & 255
+    buf[p++] = height >> 8 & 255
+    buf[p++] = (global_palette !== null ? 128 : 0) | gp_num_colors_pow2
+    buf[p++] = background
+    buf[p++] = 0
+    if (loop_count !== null) {
     if (loop_count < 0 || loop_count > 65535)
       throw 'Loop count invalid.'
     buf[p++] = 33
@@ -833,8 +833,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     buf[p++] = loop_count >> 8 & 255
     buf[p++] = 0
   }
-  var ended = false
-  this.addFrame = function (x, y, w, h, indexed_pixels, opts) {
+    var ended = false
+    this.addFrame = function (x, y, w, h, indexed_pixels, opts) {
     if (ended === true) {
       --p
       ended = false
@@ -901,14 +901,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
     p = GifWriterOutputLZWCodeStream(buf, p, min_code_size < 2 ? 2 : min_code_size, indexed_pixels)
   }
-  this.end = function () {
+    this.end = function () {
     if (ended === false) {
       buf[p++] = 59
       ended = true
     }
     return p
   }
-  function GifWriterOutputLZWCodeStream(buf, p, min_code_size, index_stream) {
+    function GifWriterOutputLZWCodeStream(buf, p, min_code_size, index_stream) {
     buf[p++] = min_code_size
     var cur_subblock = p++
     var clear_code = 1 << min_code_size
@@ -979,9 +979,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
     return p
   }
-}
+  }
   AnimatedGIF = function (utils, frameWorkerCode, NeuQuant, GifWriter) {
-  var AnimatedGIF = function (options) {
+    var AnimatedGIF = function (options) {
     this.canvas = null
     this.ctx = null
     this.repeat = 0
@@ -995,7 +995,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     this.options = options
     this.initializeWebWorkers(options)
   }
-  AnimatedGIF.prototype = {
+    AnimatedGIF.prototype = {
     'workerMethods': frameWorkerCode(),
     'initializeWebWorkers': function (options) {
       var processFrameWorkerCode = NeuQuant.toString() + '(' + frameWorkerCode.toString() + '());', webWorkerObj, objectUrl, webWorker, numWorkers, x = -1, workerError = ''
@@ -1174,8 +1174,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var self = this, onRenderComplete = function (gif) {
             self.destroyWorkers()
             utils.requestTimeout(function () {
-            completeCallback(gif)
-          }, 0)
+              completeCallback(gif)
+            }, 0)
           }
       self.startRendering(onRenderComplete)
     },
@@ -1191,10 +1191,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       })
     }
   }
-  return AnimatedGIF
-}(utils, processFrameWorker, NeuQuant, gifWriter)
+    return AnimatedGIF
+  }(utils, processFrameWorker, NeuQuant, gifWriter)
   getBase64GIF = function getBase64GIF(animatedGifInstance, callback) {
-  animatedGifInstance.getBase64GIF(function (image) {
+    animatedGifInstance.getBase64GIF(function (image) {
     callback({
       'error': false,
       'errorCode': '',
@@ -1202,18 +1202,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       'image': image
     })
   })
-}
+  }
   existingImages = function (obj) {
     var images = obj.images, imagesLength = obj.imagesLength, callback = obj.callback, options = obj.options, skipObj = {
-        'getUserMedia': true,
-        'window.URL': true
-      }, errorObj = error.validate(skipObj), loadedImages = [], loadedImagesLength = 0, tempImage, ag
+          'getUserMedia': true,
+          'window.URL': true
+        }, errorObj = error.validate(skipObj), loadedImages = [], loadedImagesLength = 0, tempImage, ag
     if (errorObj.error) {
-    return callback(errorObj)
-  }
+      return callback(errorObj)
+    }
     ag = new AnimatedGIF(options)
     utils.each(images, function (index, currentImage) {
-    if (utils.isElement(currentImage)) {
+      if (utils.isElement(currentImage)) {
       if (options.crossOrigin) {
         currentImage.crossOrigin = options.crossOrigin
       }
@@ -1248,50 +1248,50 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       })
       document.body.appendChild(tempImage)
     }
-  })
+    })
     function addLoadedImagesToGif() {
-    utils.each(loadedImages, function (index, loadedImage) {
+      utils.each(loadedImages, function (index, loadedImage) {
       if (loadedImage) {
         ag.addFrame(loadedImage, options)
       }
     })
-    getBase64GIF(ag, callback)
-  }
+      getBase64GIF(ag, callback)
+    }
   }
   screenShot = {
-  getGIF: function (options, callback) {
+    getGIF: function (options, callback) {
     callback = utils.isFunction(callback) ? callback : utils.noop
     var canvas = document.createElement('canvas'), context, existingImages = options.images, hasExistingImages = !!existingImages.length, videoElement = options.videoElement, keepCameraOn = options.keepCameraOn, webcamVideoElement = options.webcamVideoElement, cameraStream = options.cameraStream, gifWidth = +options.gifWidth, gifHeight = +options.gifHeight, videoWidth = options.videoWidth, videoHeight = options.videoHeight, sampleInterval = +options.sampleInterval, numWorkers = +options.numWorkers, crop = options.crop, interval = +options.interval, waitBetweenFrames = hasExistingImages ? 0 : interval * 1000, progressCallback = options.progressCallback, savedRenderingContexts = options.savedRenderingContexts, saveRenderingContexts = options.saveRenderingContexts, renderingContextsToSave = [], numFrames = savedRenderingContexts.length ? savedRenderingContexts.length : options.numFrames, pendingFrames = numFrames, ag = new AnimatedGIF(options), text = options.text, fontWeight = options.fontWeight, fontSize = utils.getFontSize(options), fontFamily = options.fontFamily, fontColor = options.fontColor, textAlign = options.textAlign, textBaseline = options.textBaseline, textXCoordinate = options.textXCoordinate ? options.textXCoordinate : textAlign === 'left' ? 1 : textAlign === 'right' ? gifWidth : gifWidth / 2, textYCoordinate = options.textYCoordinate ? options.textYCoordinate : textBaseline === 'top' ? 1 : textBaseline === 'center' ? gifHeight / 2 : gifHeight, font = fontWeight + ' ' + fontSize + ' ' + fontFamily, sourceX = crop ? Math.floor(crop.scaledWidth / 2) : 0, sourceWidth = crop ? videoWidth - crop.scaledWidth : 0, sourceY = crop ? Math.floor(crop.scaledHeight / 2) : 0, sourceHeight = crop ? videoHeight - crop.scaledHeight : 0, captureFrames = function captureFrame() {
           var framesLeft = pendingFrames - 1
           if (savedRenderingContexts.length) {
-          context.putImageData(savedRenderingContexts[numFrames - pendingFrames], 0, 0)
-          finishCapture()
-        } else {
-          drawVideo()
-        }
+            context.putImageData(savedRenderingContexts[numFrames - pendingFrames], 0, 0)
+            finishCapture()
+          } else {
+            drawVideo()
+          }
           function drawVideo() {
             try {
-            if (sourceWidth > videoWidth) {
+              if (sourceWidth > videoWidth) {
               sourceWidth = videoWidth
             }
-            if (sourceHeight > videoHeight) {
+              if (sourceHeight > videoHeight) {
               sourceHeight = videoHeight
             }
-            if (sourceX < 0) {
+              if (sourceX < 0) {
               sourceX = 0
             }
-            if (sourceY < 0) {
+              if (sourceY < 0) {
               sourceY = 0
             }
-            context.drawImage(videoElement, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, gifWidth, gifHeight)
-            finishCapture()
-          } catch (e) {
-            if (e.name === 'NS_ERROR_NOT_AVAILABLE') {
+              context.drawImage(videoElement, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, gifWidth, gifHeight)
+              finishCapture()
+            } catch (e) {
+              if (e.name === 'NS_ERROR_NOT_AVAILABLE') {
               utils.requestTimeout(drawVideo, 100)
             } else {
               throw e
             }
-          }
+            }
           }
           function finishCapture() {
             pendingFrames = framesLeft
@@ -1301,30 +1301,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             var rgba
             var isBlackFrame
             if (saveRenderingContexts) {
-            renderingContextsToSave.push(context.getImageData(0, 0, gifWidth, gifHeight))
-          }
+              renderingContextsToSave.push(context.getImageData(0, 0, gifWidth, gifHeight))
+            }
             if (text) {
-            context.font = font
-            context.fillStyle = fontColor
-            context.textAlign = textAlign
-            context.textBaseline = textBaseline
-            context.fillText(text, textXCoordinate, textYCoordinate)
-          }
+              context.font = font
+              context.fillStyle = fontColor
+              context.textAlign = textAlign
+              context.textBaseline = textBaseline
+              context.fillText(text, textXCoordinate, textYCoordinate)
+            }
             imageData = context.getImageData(0, 0, gifWidth, gifHeight)
             data = imageData.data
             rgba = data[0] + data[1] + data[2] + data[3]
             isBlackFrame = rgba === 0
             if (!isBlackFrame) {
-            ag.addFrameImageData(imageData)
-          } else if (processedFrames === 1 && numFrames === 1) {
+              ag.addFrameImageData(imageData)
+            } else if (processedFrames === 1 && numFrames === 1) {
             drawVideo()
           }
             progressCallback(processedFrames / numFrames)
             if (framesLeft > 0) {
-            utils.requestTimeout(captureFrame, waitBetweenFrames)
-          }
+              utils.requestTimeout(captureFrame, waitBetweenFrames)
+            }
             if (!pendingFrames) {
-            ag.getBase64GIF(function (image) {
+              ag.getBase64GIF(function (image) {
               callback({
                 'error': false,
                 'errorCode': '',
@@ -1337,7 +1337,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 'keepCameraOn': keepCameraOn
               })
             })
-          }
+            }
           }
         }
     numFrames = numFrames != null ? numFrames : 10
@@ -1353,7 +1353,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       captureFrames()
     }())
   },
-  'getCropDimensions': function (obj) {
+    'getCropDimensions': function (obj) {
     var width = obj.videoWidth, height = obj.videoHeight, gifWidth = obj.gifWidth, gifHeight = obj.gifHeight, result = {
           width: 0,
           height: 0,
@@ -1369,14 +1369,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
     return result
   }
-}
+  }
   videoStream = {
-  'loadedData': false,
-  'defaultVideoDimensions': {
+    'loadedData': false,
+    'defaultVideoDimensions': {
     'width': 640,
     'height': 480
   },
-  'findVideoSize': function findVideoSizeMethod(obj) {
+    'findVideoSize': function findVideoSizeMethod(obj) {
     findVideoSizeMethod.attempts = findVideoSizeMethod.attempts || 0
     var self = this, videoElement = obj.videoElement, cameraStream = obj.cameraStream, completedCallback = obj.completedCallback
     if (!videoElement) {
@@ -1406,7 +1406,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
   },
-  'onStreamingTimeout': function (callback) {
+    'onStreamingTimeout': function (callback) {
     if (utils.isFunction(callback)) {
       callback({
         'error': true,
@@ -1417,7 +1417,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       })
     }
   },
-  'stream': function (obj) {
+    'stream': function (obj) {
     var self = this, existingVideo = utils.isArray(obj.existingVideo) ? obj.existingVideo[0] : obj.existingVideo, videoElement = obj.videoElement, cameraStream = obj.cameraStream, streamedCallback = obj.streamedCallback, completedCallback = obj.completedCallback
     if (utils.isFunction(streamedCallback)) {
       streamedCallback()
@@ -1456,7 +1456,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }, 100)
   },
-  'startStreaming': function (obj) {
+    'startStreaming': function (obj) {
     var self = this, errorCallback = utils.isFunction(obj.error) ? obj.error : utils.noop, streamedCallback = utils.isFunction(obj.streamed) ? obj.streamed : utils.noop, completedCallback = utils.isFunction(obj.completed) ? obj.completed : utils.noop, existingVideo = obj.existingVideo, webcamVideoElement = obj.webcamVideoElement, videoElement = utils.isElement(existingVideo) ? existingVideo : webcamVideoElement ? webcamVideoElement : document.createElement('video'), lastCameraStream = obj.lastCameraStream, crossOrigin = obj.crossOrigin, options = obj.options, cameraStream
     if (crossOrigin) {
       videoElement.crossOrigin = options.crossOrigin
@@ -1491,7 +1491,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }, errorCallback)
     }
   },
-  startVideoStreaming: function (callback, options) {
+    startVideoStreaming: function (callback, options) {
     options = options || {}
     var self = this, noGetUserMediaSupportTimeout, timeoutLength = options.timeout !== undefined ? options.timeout : 0, originalCallback = options.callback, webcamVideoElement = options.webcamVideoElement
     if (timeoutLength > 0) {
@@ -1527,7 +1527,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       'options': options
     })
   },
-  'stopVideoStreaming': function (obj) {
+    'stopVideoStreaming': function (obj) {
     obj = utils.isObject(obj) ? obj : {}
     var cameraStream = obj.cameraStream, videoElement = obj.videoElement, keepCameraOn = obj.keepCameraOn, webcamVideoElement = obj.webcamVideoElement
     if (!keepCameraOn && cameraStream && utils.isFunction(cameraStream.stop)) {
@@ -1543,64 +1543,64 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       utils.removeElement(videoElement)
     }
   }
-}
+  }
   stopVideoStreaming = function (obj) {
-  obj = utils.isObject(obj) ? obj : {}
-  var options = utils.isObject(obj.options) ? obj.options : {}, cameraStream = obj.cameraStream, videoElement = obj.videoElement, webcamVideoElement = obj.webcamVideoElement, keepCameraOn = obj.keepCameraOn
-  videoStream.stopVideoStreaming({
+    obj = utils.isObject(obj) ? obj : {}
+    var options = utils.isObject(obj.options) ? obj.options : {}, cameraStream = obj.cameraStream, videoElement = obj.videoElement, webcamVideoElement = obj.webcamVideoElement, keepCameraOn = obj.keepCameraOn
+    videoStream.stopVideoStreaming({
     'cameraStream': cameraStream,
     'videoElement': videoElement,
     'keepCameraOn': keepCameraOn,
     'webcamVideoElement': webcamVideoElement
   })
-}
+  }
   createAndGetGIF = function (obj, callback) {
     var options = obj.options || {}, images = options.images, video = options.video, numFrames = +options.numFrames, cameraStream = obj.cameraStream, videoElement = obj.videoElement, videoWidth = obj.videoWidth, videoHeight = obj.videoHeight, gifWidth = +options.gifWidth, gifHeight = +options.gifHeight, cropDimensions = screenShot.getCropDimensions({
-        'videoWidth': videoWidth,
-        'videoHeight': videoHeight,
-        'gifHeight': gifHeight,
-        'gifWidth': gifWidth
-      }), completeCallback = callback
+          'videoWidth': videoWidth,
+          'videoHeight': videoHeight,
+          'gifHeight': gifHeight,
+          'gifWidth': gifWidth
+        }), completeCallback = callback
     options.crop = cropDimensions
     options.videoElement = videoElement
     options.videoWidth = videoWidth
     options.videoHeight = videoHeight
     options.cameraStream = cameraStream
     if (!utils.isElement(videoElement)) {
-    return
-  }
+      return
+    }
     videoElement.width = gifWidth + cropDimensions.width
     videoElement.height = gifHeight + cropDimensions.height
     if (!options.webcamVideoElement) {
-    utils.setCSSAttr(videoElement, {
+      utils.setCSSAttr(videoElement, {
       'position': 'fixed',
       'opacity': '0'
     })
-    document.body.appendChild(videoElement)
-  }
+      document.body.appendChild(videoElement)
+    }
     videoElement.play()
     screenShot.getGIF(options, function (obj) {
-    if ((!images || !images.length) && (!video || !video.length)) {
+      if ((!images || !images.length) && (!video || !video.length)) {
       stopVideoStreaming(obj)
     }
-    completeCallback(obj)
-  })
+      completeCallback(obj)
+    })
   }
   existingVideo = function (obj) {
     var existingVideo = obj.existingVideo, callback = obj.callback, options = obj.options, skipObj = {
-        'getUserMedia': true,
-        'window.URL': true
-      }, errorObj = error.validate(skipObj), loadedImages = 0, videoType, videoSrc, tempImage, ag
+          'getUserMedia': true,
+          'window.URL': true
+        }, errorObj = error.validate(skipObj), loadedImages = 0, videoType, videoSrc, tempImage, ag
     if (errorObj.error) {
-    return callback(errorObj)
-  }
+      return callback(errorObj)
+    }
     if (utils.isElement(existingVideo) && existingVideo.src) {
-    videoSrc = existingVideo.src
-    videoType = utils.getExtension(videoSrc)
-    if (!utils.isSupported.videoCodecs[videoType]) {
+      videoSrc = existingVideo.src
+      videoType = utils.getExtension(videoSrc)
+      if (!utils.isSupported.videoCodecs[videoType]) {
       return callback(error.messages.videoCodecs)
     }
-  } else if (utils.isArray(existingVideo)) {
+    } else if (utils.isArray(existingVideo)) {
     utils.each(existingVideo, function (iterator, videoSrc) {
       videoType = videoSrc.substr(videoSrc.lastIndexOf('.') + 1, videoSrc.length)
       if (utils.isSupported.videoCodecs[videoType]) {
@@ -1610,30 +1610,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     })
   }
     videoStream.startStreaming({
-    'completed': function (obj) {
+      'completed': function (obj) {
       obj.options = options || {}
       createAndGetGIF(obj, callback)
     },
-    'existingVideo': existingVideo,
-    'crossOrigin': options.crossOrigin,
-    'options': options
-  })
+      'existingVideo': existingVideo,
+      'crossOrigin': options.crossOrigin,
+      'options': options
+    })
   }
   existingWebcam = function (obj) {
     var lastCameraStream = obj.lastCameraStream, callback = obj.callback, webcamVideoElement = obj.webcamVideoElement, options = obj.options
     if (!isWebCamGIFSupported()) {
-    return callback(error.validate())
-  }
+      return callback(error.validate())
+    }
     if (options.savedRenderingContexts.length) {
-    screenShot.getWebcamGIF(options, function (obj) {
+      screenShot.getWebcamGIF(options, function (obj) {
       callback(obj)
     })
-    return
-  }
+      return
+    }
     videoStream.startVideoStreaming(function (obj) {
-    obj.options = options || {}
-    createAndGetGIF(obj, callback)
-  }, {
+      obj.options = options || {}
+      createAndGetGIF(obj, callback)
+    }, {
     'lastCameraStream': lastCameraStream,
     'callback': callback,
     'webcamVideoElement': webcamVideoElement,
@@ -1644,21 +1644,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     callback = utils.isFunction(userOptions) ? userOptions : callback
     userOptions = utils.isObject(userOptions) ? userOptions : {}
     if (!utils.isFunction(callback)) {
-    return
-  }
+      return
+    }
     var options = utils.mergeOptions(defaultOptions, userOptions) || {}, lastCameraStream = userOptions.cameraStream, images = options.images, imagesLength = images ? images.length : 0, video = options.video, webcamVideoElement = options.webcamVideoElement
     options = utils.mergeOptions(options, {
-    'gifWidth': Math.floor(options.gifWidth),
-    'gifHeight': Math.floor(options.gifHeight)
-  })
+      'gifWidth': Math.floor(options.gifWidth),
+      'gifHeight': Math.floor(options.gifHeight)
+    })
     if (imagesLength) {
-    existingImages({
+      existingImages({
       'images': images,
       'imagesLength': imagesLength,
       'callback': callback,
       'options': options
     })
-  } else if (video) {
+    } else if (video) {
     existingVideo({
       'existingVideo': video,
       'callback': callback,
@@ -1674,41 +1674,41 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
   }
   takeSnapShot = function (userOptions, callback) {
-  callback = utils.isFunction(userOptions) ? userOptions : callback
-  userOptions = utils.isObject(userOptions) ? userOptions : {}
-  if (!utils.isFunction(callback)) {
+    callback = utils.isFunction(userOptions) ? userOptions : callback
+    userOptions = utils.isObject(userOptions) ? userOptions : {}
+    if (!utils.isFunction(callback)) {
     return
   }
-  var mergedOptions = utils.mergeOptions(defaultOptions, userOptions), options = utils.mergeOptions(mergedOptions, {
+    var mergedOptions = utils.mergeOptions(defaultOptions, userOptions), options = utils.mergeOptions(mergedOptions, {
         'interval': 0.1,
         'numFrames': 1,
         'gifWidth': Math.floor(mergedOptions.gifWidth),
         'gifHeight': Math.floor(mergedOptions.gifHeight)
       })
-  createGIF(options, callback)
-}
+    createGIF(options, callback)
+  }
   API = function (utils, error, defaultOptions, isSupported, isWebCamGIFSupported, isExistingImagesGIFSupported, isExistingVideoGIFSupported, createGIF, takeSnapShot, stopVideoStreaming) {
     var gifshot = {
-    'utils': utils,
-    'error': error,
-    'defaultOptions': defaultOptions,
-    'createGIF': createGIF,
-    'takeSnapShot': takeSnapShot,
-    'stopVideoStreaming': stopVideoStreaming,
-    'isSupported': isSupported,
-    'isWebCamGIFSupported': isWebCamGIFSupported,
-    'isExistingVideoGIFSupported': isExistingVideoGIFSupported,
-    'isExistingImagesGIFSupported': isExistingImagesGIFSupported,
-    'VERSION': '0.3.2'
-  }
+      'utils': utils,
+      'error': error,
+      'defaultOptions': defaultOptions,
+      'createGIF': createGIF,
+      'takeSnapShot': takeSnapShot,
+      'stopVideoStreaming': stopVideoStreaming,
+      'isSupported': isSupported,
+      'isWebCamGIFSupported': isWebCamGIFSupported,
+      'isExistingVideoGIFSupported': isExistingVideoGIFSupported,
+      'isExistingImagesGIFSupported': isExistingImagesGIFSupported,
+      'VERSION': '0.3.2'
+    }
     return gifshot
   }(utils, error, defaultOptions, isSupported, isWebCamGIFSupported, isExistingImagesGIFSupported, isExistingVideoGIFSupported, createGIF, takeSnapShot, stopVideoStreaming);
   (function (API) {
     if (typeof define === 'function' && define.amd) {
-    define([], function () {
+      define([], function () {
       return API
     })
-  } else if (typeof exports !== 'undefined') {
+    } else if (typeof exports !== 'undefined') {
     module.exports = API
   } else {
     window.gifshot = API
